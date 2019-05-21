@@ -15,8 +15,9 @@ import tools.HibernateUtil;
  * @author RR17
  */
 public class JobServlet extends HttpServlet {
+
     IGeneralDAO<Job> jdao = new GeneralDAO<>(Job.class, HibernateUtil.getSessionFactory());
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,7 +34,7 @@ public class JobServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             //menampilkan getAll data Job dengan kembalian false
             request.getSession().setAttribute("dataJob", jdao.getData("", false));
-            
+
             //controller link direct ke tampilan Job 
             response.sendRedirect("region/job.jsp");
 //            out.println("<!DOCTYPE html>");
@@ -60,6 +61,13 @@ public class JobServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id = request.getParameter("job_id");
+        String name = request.getParameter("job_title");
+        String min = request.getParameter("min_sal");
+        String max = request.getParameter("max_sal");
+        if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)) {
+            
+        }
         processRequest(request, response);
     }
 
@@ -74,12 +82,16 @@ public class JobServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("job_id");
+        String id = request.getParameter("Job_id");
         String name = request.getParameter("job_title");
         String min = request.getParameter("min_sal");
         String max = request.getParameter("max_sal");
-        if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)){
-            processRequest(request, response);
+        if (id.isEmpty()) {
+            request.getSession().setAttribute("alert", "Job ID tidak boleh kosong");
+        } else {
+            if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)) {
+                processRequest(request, response);
+            }
         }
     }
 
