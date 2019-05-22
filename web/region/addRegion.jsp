@@ -1,7 +1,7 @@
 <%-- 
     Document   : addRegion
-    Created on : 21-May-2019, 23:17:41
-    Author     : yosef
+    Created on : May 21, 2019, 11:19:15 AM
+    Author     : Relion31
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,13 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-        <title>JSP Page</title>
+        <title>Add Data</title>
     </head>
     <body>
         <div class="container">
             <h1>Tambah Data Region</h1>
             <div class="row">
-                <form action="../RegionServlet" method="post" >
+                <form action="../RegionServlet" method="post">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="region_name">Region Name</label>
@@ -27,5 +27,6 @@
                 </form>
             </div> 
         </div>
+
     </body>
 </html>

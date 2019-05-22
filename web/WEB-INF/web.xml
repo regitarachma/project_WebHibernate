@@ -4,25 +4,9 @@
         <servlet-name>cobaServlet</servlet-name>
         <servlet-class>cobaServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>RegionServlet</servlet-name>
-        <servlet-class>servlet.RegionServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CountryServlet</servlet-name>
-        <servlet-class>servlet.CountryServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>cobaServlet</servlet-name>
         <url-pattern>/cobaServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RegionServlet</servlet-name>
-        <url-pattern>/RegionServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CountryServlet</servlet-name>
-        <url-pattern>/CountryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
