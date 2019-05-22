@@ -31,7 +31,6 @@
                     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#input-job">
                         Add Data
                     </button>
-<!--                    <a type="button" class="btn btn-light" href="addCountry.jsp">Add</a>-->
                     <a type="button" class="btn btn-light" href="../JobServlett">Refresh</a>
                 </div>
                 <div class="card-body">
@@ -104,7 +103,7 @@
             </div>
         </div>
         
-        <!--modal edit country-->
+        <!--modal edit job-->
         <%for (Job job : jobs) {%>
         <div class="modal fade" id="edit-job<%= job.getJobId()%>" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
             <div class="modal-dialog">

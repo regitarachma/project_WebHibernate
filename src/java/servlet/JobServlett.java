@@ -16,6 +16,7 @@ import tools.HibernateUtil;
  *
  * @author RR17
  */
+@WebServlet(name = "JobServlett", urlPatterns = {"/JobServlett"})
 public class JobServlett extends HttpServlet {
 
     IGeneralDAO<Job> jdao = new GeneralDAO<>(Job.class, HibernateUtil.getSessionFactory());
@@ -34,9 +35,14 @@ public class JobServlett extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+//            
+//            request.getSession().setAttribute("dataJob", jdao.getData("", false));
+//
+//            
+//            response.sendRedirect("jsp/job.jsp");
+
             //menampilkan getAll data Job dengan kembalian false
             request.getSession().setAttribute("dataJob", jdao.getData("", false));
-
             //controller link direct ke tampilan Job 
             response.sendRedirect("jsp/job.jsp");
 //            out.println("<!DOCTYPE html>");
@@ -74,6 +80,7 @@ public class JobServlett extends HttpServlet {
             name = request.getParameter("job_title");
             min = request.getParameter("min_sal");
             max = request.getParameter("max_sal");
+            
             int minsal = 0;
             int maxsal = 0;
             if (id != null) {
@@ -92,7 +99,8 @@ public class JobServlett extends HttpServlet {
                 processRequest(request, response);
             }
         } catch (Exception e) {
-            throw new ServletException(e);
+            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
     

@@ -42,10 +42,19 @@ public class ManualTester {
 //        MainFrameView mfv = new MainFrameView();
 //        mfv.setVisible(true);
         //General DAO saveDelete
-//        GeneralDAO<Country> cdao = new GeneralDAO<>(Country.class, sessionFactory);
-//        for (Country c : cdao.getData("IN", true)) {
-//            System.out.println(c.getCountryId()+" "+c.getCountryName()+" "+c.getRegionId().getRegionName());
+        GeneralDAO<Job> jdao = new GeneralDAO<>(Job.class, sessionFactory);
+//        System.out.println(jdao.saveOrDelete(new Job("YYYY", "YAYAYA", 9090, 7879), true));
+//        for (Job j : jdao.getData("YYYY", false)) {
+//            System.out.println(j.getJobId()+" "+j.getJobTitle()+" "+j.getMinSalary());
 //        }
+//        for (Job j : jdao.saveOrDelete(new Job("ZZZZ"), false)) {
+//            System.out.println(j.getJobId());
+//        }
+        
+//        for (Job job : jdao.saveOrDelete("ZZZZ", false)) {
+//            System.out.println(job.getJobId());
+//        }
+        
 //        for (Country c : cdao.getData("ZZ", false)) {
 //            System.out.println(c.getCountryId()+" "+c.getCountryName()+" "+c.getRegionId().getRegionName());
 //        }
@@ -55,12 +64,12 @@ public class ManualTester {
         //saveOrDelete region pada GeneralDAO = false untuk del, true untuk save/update
 //        GeneralDAO<Region> rdAO = new GeneralDAO<>(Region.class, sessionFactory);
 //        
-//        for (Region region : rdAO.getData("", false)) {
+//        for (Region region : jdao.saveOrDelete("ZZZZ", false)) {
 //            System.out.println(region.getRegionName());
 //        }
         
-//        Region region = new Region(new BigDecimal(6), "Sekarang");
-//        System.out.println(rdAO.saveOrDelete(region, false));
+//        Job job = new Job("ZZZZ");
+//        System.out.println(jdao.saveOrDelete(job, false));
         //insert region pada GeneralDAO
 //        GeneralDAO<Region> rdAO = new GeneralDAO<>(sessionFactory);
 //        Region region = new Region(new BigDecimal(0), "Hawai");
@@ -175,25 +184,24 @@ public class ManualTester {
 //  ==========================================================================================
 //21-05-2019
 
-        ICountryController countryController = new CountryController(Country.class, sessionFactory);
-        
-        //get ALL
-        for (Country country : countryController.getAll()) {
-            System.out.println(country.getCountryId()+", "+country.getCountryName()+", "+country.getRegionId().getRegionId());
-        }
-        //get By id
-        for (Country country : countryController.getById("MY")) {
-            System.out.println(country.getCountryId()+", "+country.getCountryName()+", "+country.getRegionId().getRegionId());
-        }
-        //get search
-        for (Country country : countryController.search("Indonesia")) {
-            System.out.println(country.getCountryId()+", "+country.getCountryName()+", "+country.getRegionId().getRegionId());
-        }
-        
-        ILocationController ilc = new LocationController(Location.class, sessionFactory);
-        for (Location location : ilc.getAll()) {
-            System.out.println(location.getLocationId()+", "+location.getStreetAddress());
+//        ICountryController countryController = new CountryController(Country.class, sessionFactory);
+//        
+//        //get ALL
+//        for (Country country : countryController.getAll()) {
+//            System.out.println(country.getCountryId()+", "+country.getCountryName()+", "+country.getRegionId().getRegionId());
+//        }
+//        //get By id
+//        for (Country country : countryController.getById("MY")) {
+//            System.out.println(country.getCountryId()+", "+country.getCountryName()+", "+country.getRegionId().getRegionId());
+//        }
+//        //get search
+//        for (Country country : countryController.search("Indonesia")) {
+//            System.out.println(country.getCountryId()+", "+country.getCountryName()+", "+country.getRegionId().getRegionId());
+//        }
+//        
+//        ILocationController ilc = new LocationController(Location.class, sessionFactory);
+//        for (Location location : ilc.getAll()) {
+//            System.out.println(location.getLocationId()+", "+location.getStreetAddress());
             
         }
     }
-}
