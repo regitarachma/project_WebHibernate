@@ -35,6 +35,7 @@
                 <button type="button" class="btn btn-light" data-toggle="modal" data-target="#input-d">
                     Add Data
                 </button>
+                <a type="button" class="btn btn-light" href="../departmentServlet">Refresh</a>
                 <!--<a type="button" class="btn btn-light" href="addRegion.jsp">Add</a>-->
 
             </div>
@@ -121,7 +122,7 @@
                             <input type="text" class="form-control" id="dname" name="dname" value="<%= d.getDepartmentName()%>" required placeholder="Enter D Name">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="dman" name="dman" value="<%= d.getManagerId().getEmployeeId() %>" required placeholder="Enter Manager ID">
+                            <input type="text" class="form-control" id="dman" name="dman" value="<%= d.getManagerId() %>" required placeholder="Enter Manager ID">
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="dloc" name="dloc" value="<%= d.getLocationId().getLocationId() %>" required placeholder="Enter Loc ID">
@@ -143,15 +144,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete D</h4>
+                    <h4 class="modal-title">Delete Department</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <form action="../deleteDepartmentServlet" method="get">
+                <form action="../departmentServlet" method="get">
                     <div class="modal-body">
-                        <input type="hidden" class="form-control" id="did" name="did" value="<%= d.getDepartmentId()%>">
-                        <input type="hidden" class="form-control" id="dname" name="dname" value="<%= d.getDepartmentName()%>">
-                        <input type="hidden" class="form-control" id="dman" name="dman" value="<%= d.getManagerId()%>">
-                        <input type="hidden" class="form-control" id="dloc" name="dloc" value="<%= d.getLocationId() %>" required placeholder="Enter loc ID">
+                        Apakah anda yakin ingin menghapus data ini?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

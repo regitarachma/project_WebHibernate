@@ -79,18 +79,24 @@ public class departmentServlet extends HttpServlet {
             dname = request.getParameter("dname");
             dman = request.getParameter("dman");
             dloc = request.getParameter("dloc");
-            int did_ = 0;
+
             if (did != null) {
-                did_ = Integer.parseInt(did);
+                if (dname != null && dman != null && dloc != null) {
+                    if (dAO.saveOrDelete(new Department(new Short(did), dname, new Employee(Integer.parseInt(dman)), new Location(new Short(dloc))), true)) {
 
-                if (dAO.saveOrDelete(new Department(new Short("0"), dname, new Employee(Integer.parseInt(dman)), new Location(new Short(dloc))), true)) {
-
-                    processRequest(request, response);
+                        processRequest(request, response);
+                    }
+                } else {
+                    if (dAO.saveOrDelete(new Department(new Short(did)), false)) {
+                        processRequest(request, response);
+                    }
                 }
+//                request.getSession().setAttribute("alert", "D Name tidak boleh kosong");
+
             } else {
-                request.getSession().setAttribute("alert", "D Name tidak boleh kosong");
                 processRequest(request, response);
             }
+
         } catch (Exception e) {
             throw new ServletException(e);
         }
@@ -112,24 +118,24 @@ public class departmentServlet extends HttpServlet {
         String name = null;
         String man = null;
         String loc = null;
-        
+
         id = request.getParameter("id");
         name = request.getParameter("name");
         man = request.getParameter("man");
         loc = request.getParameter("loc");
-        
+
         if (name.isEmpty()) {
             request.getSession().setAttribute("alert", "NAME tidak boleh kosong");
         } else {
-        if (dAO.saveOrDelete(new Department(new Short("0"), name, new Employee(Integer.parseInt(man)), new Location(new Short(loc))), true)) {
-        processRequest(request, response);
-    }
-}
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+            if (dAO.saveOrDelete(new Department(new Short("0"), name, new Employee(Integer.parseInt(man)), new Location(new Short(loc))), true)) {
+                processRequest(request, response);
+            }
+        }
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
 //        @Override
 //        public String getServletInfo
 //        
@@ -137,5 +143,5 @@ public class departmentServlet extends HttpServlet {
 //        return "Short description";
 //        }// </editor-fold>
 
-}
+    }
 }
