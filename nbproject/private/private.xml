@@ -5,8 +5,11 @@
         <group>
             <file>file:/D:/JAVA/Web-Hibernite-master/web/index.html</file>
             <file>file:/D:/JAVA/Web-Hibernite-master/src/java/servlet/RegionServlet.java</file>
+            <file>file:/D:/JAVA/Web-Hibernite-master/src/java/servlet/JobServlet.java</file>
             <file>file:/D:/JAVA/Web-Hibernite-master/web/region/region.jsp</file>
-            <file>file:/D:/JAVA/Web-Hibernite-master/web/region/addRegionForm.jsp</file>
+            <file>file:/D:/JAVA/Web-Hibernite-master/web/region/job.jsp</file>
+            <file>file:/D:/JAVA/Web-Hibernite-master/web/region/addJobForm.jsp</file>
+            <file>file:/D:/JAVA/Web-Hibernite-master/web/region/updateJobForm.jsp</file>
         </group>
     </open-files>
 </project-private>

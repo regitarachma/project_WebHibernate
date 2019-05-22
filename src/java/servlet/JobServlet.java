@@ -1,4 +1,3 @@
-
 import daos.GeneralDAO;
 import entities.Job;
 import idaos.IGeneralDAO;
@@ -36,7 +35,7 @@ public class JobServlet extends HttpServlet {
             request.getSession().setAttribute("dataJob", jdao.getData("", false));
 
             //controller link direct ke tampilan Job 
-            response.sendRedirect("region/job.jsp");
+            response.sendRedirect("jsp/job.jsp");
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
@@ -66,9 +65,9 @@ public class JobServlet extends HttpServlet {
         String min = request.getParameter("min_sal");
         String max = request.getParameter("max_sal");
         if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)) {
-            
+             processRequest(request, response);   
         }
-        processRequest(request, response);
+//        }       
     }
 
     /**
@@ -86,14 +85,13 @@ public class JobServlet extends HttpServlet {
         String name = request.getParameter("job_title");
         String min = request.getParameter("min_sal");
         String max = request.getParameter("max_sal");
-        if (id.isEmpty()) {
-            request.getSession().setAttribute("alert", "Job ID tidak boleh kosong");
-        } else {
+//        if (id.isEmpty()) {
+//            request.getSession().setAttribute("alert", "Job ID tidak boleh kosong");
+//        } else {
             if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)) {
                 processRequest(request, response);
             }
         }
-    }
 
     /**
      * Returns a short description of the servlet.
@@ -104,5 +102,4 @@ public class JobServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

@@ -42,7 +42,7 @@ public class RegionServlet extends HttpServlet {
             request.getSession().setAttribute("dataRegion", rdao.getData("", false));
             
             //controller link direct ke tampilan region 
-            response.sendRedirect("region/region.jsp");
+            response.sendRedirect("jsp/region.jsp");
 //            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 //            dispatcher.
             
