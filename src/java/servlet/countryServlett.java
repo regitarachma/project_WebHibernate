@@ -6,27 +6,29 @@
 package servlet;
 
 import daos.GeneralDAO;
+import entities.Country;
 import entities.Region;
 import idaos.IGeneralDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
 
 /**
  *
  * @author Relion31
  */
-@WebServlet(name = "RegionServlet", urlPatterns = {"/RegionServlet"})
-public class RegionServlet extends HttpServlet {
+@WebServlet(name = "countryServlett", urlPatterns = {"/countryServlett"})
+public class countryServlett extends HttpServlet {
 
-    IGeneralDAO<Region> rdao = new GeneralDAO<>(Region.class, HibernateUtil.getSessionFactory());
+    SessionFactory factory = HibernateUtil.getSessionFactory();
+    IGeneralDAO<Country> cdao = new GeneralDAO<>(Country.class, factory);
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,23 +43,16 @@ public class RegionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            //untuk menampung data
-            request.getSession().setAttribute("dataRegion", rdao.getData("", false));
-
-            //untuk ngirim data ke tabel 
-            response.sendRedirect("region/region.jsp");
-            //untuk ngirim data ke tabel dg cara yg lain
-//            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-//                    dispatcher.forward(request, response);
-
+            request.getSession().setAttribute("dataCountry", cdao.getData("", false));
+            response.sendRedirect("country/country.jsp");
             /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet RegionServlet</title>");            
+//            out.println("<title>Servlet testing</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet RegionServlet at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet testing at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
         }
@@ -78,29 +73,29 @@ public class RegionServlet extends HttpServlet {
         try {
             String name = null;
             String id = null;
-            id = request.getParameter("region_Id");
-            name = request.getParameter("region_Name");
+            String ireg = null;
+
+            id = request.getParameter("country_id");
+            name = request.getParameter("country_name");
+            ireg = request.getParameter("region_id");
             int id_region = 0;
             if (id != null) {
-                id_region = Integer.parseInt(id);
-                if (name != null) {
-                    if (rdao.saveOrDelete(new Region(new BigDecimal(id_region), name), true)) {
+                if (name != null && ireg != null) {
+                    id_region = Integer.parseInt(ireg);
+                    if (cdao.saveOrDelete(new Country(id, name, new Region(new BigDecimal(id_region))), true)) {
                         processRequest(request, response);
                     }
                 } else {
-                    if (rdao.saveOrDelete(new Region(new BigDecimal(id_region)), false)) {
+                    if (cdao.saveOrDelete(new Country(id), false)) {
                         processRequest(request, response);
                     }
                 }
             } else {
-                request.getSession().setAttribute("alert", "Region Name tidak boleh kosong");
                 processRequest(request, response);
             }
-
         } catch (Exception e) {
             throw new ServletException(e);
         }
-
 //        processRequest(request, response);
     }
 
@@ -116,21 +111,21 @@ public class RegionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = null;
-        name = request.getParameter("region_name");
+        String id = null;
+        String ireg = null;
+
+        id = request.getParameter("country_id");
+        name = request.getParameter("country_name");
+        ireg = request.getParameter("region_id");
+
         if (name.isEmpty()) {
-            request.getSession().setAttribute("alert", "Region Name tidak boleh kosong");
+            request.getSession().setAttribute("alert", "Nama Country tidak boleh kosong");
         } else {
-            if (rdao.saveOrDelete(new Region(new BigDecimal(0), name), true)) {
+            if (cdao.saveOrDelete(new Country(id, name, new Region(new BigDecimal(ireg))), true)) {
                 processRequest(request, response);
             }
         }
-
-//        String id = null;
-//        id = request.getParameter("region_id");
-//        
-//        if(rdao.saveOrDelete(new Region(new BigDecimal(id) ), false)){
-//            processRequest(request, response);
-//        }
+//        processRequest(request, response);
     }
 
     /**

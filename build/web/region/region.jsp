@@ -11,11 +11,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
-        <title>Region Data</title>
-        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
 
     </head>
     <body>
@@ -25,7 +27,7 @@
             <h1>Region Table</h1>
             <div class="card border-info">
                 <div class="card-header bg-info text-white">
-                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#input-region">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#input-region">
                         Add Data
                     </button>
                     <!--<a type="button" class="btn btn-light" href="addRegion.jsp">Add</a>-->
@@ -49,13 +51,15 @@
                                     <a type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit-region<%= region.getRegionId()%>">Edit</a>
                                     <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-region<%= region.getRegionId()%>">Delete</a>
                                 </td>
-                            </tr>   
+                            </tr>
                             <% }%>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
+
 
         <!-- Modal edit Dialog -->
         <%for (Region region : regions) {%>
@@ -68,9 +72,9 @@
                     </div>
                     <form action="../RegionServlet" method="get">
                         <div class="modal-body">
-                            <input type="hidden" class="form-control" id="region_name" name="region_id" value="<%= region.getRegionId()%>">
+                            <input type="hidden" class="form-control" id="region_Id" name="region_Id" value="<%= region.getRegionId()%>">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="region_name" name="region_name" value="<%= region.getRegionName()%>" required placeholder="Enter Region Name">
+                                <input type="text" class="form-control" id="region_Name" name="region_Name" value="<%= region.getRegionName()%>" required placeholder="Enter Region Name">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -118,7 +122,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <form action="../RegionServlet" method="get">
-                        <input type="hidden" class="form-control" id="region_name" name="region_id" value="<%= region.getRegionId()%>">
+                        <input type="hidden" class="form-control" id="region_Id" name="region_Id" value="<%= region.getRegionId()%>">
                         <div class="modal-body">
                             Apakah anda yakin ingin menghapus data ini?
                         </div>
@@ -132,10 +136,11 @@
             </div>
         </div>
         <%}%>
-        
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="../assets/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#table_id').DataTable();
+            });
+        </script>      
     </body>  
 </html>

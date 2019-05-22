@@ -16,7 +16,7 @@
         <div class="container">
             <h1>Tambah Data Region</h1>
             <div class="row">
-                <form action="../RegionServlet" method="post">
+                <form action="../RegionServlet" method="post" >
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="region_name">Region Name</label>
