@@ -20,10 +20,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        
+
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
-<!--        <script src="https://code.jquery.com/jquery.js"></script>-->
-<!--        <script src="assets/js/bootstrap.min.js"></script>-->
+        <!--        <script src="https://code.jquery.com/jquery.js"></script>-->
+        <!--        <script src="assets/js/bootstrap.min.js"></script>-->
     </head>
     <body>
         <% List<Employee> list = (List<Employee>) session.getAttribute("dataEmployee"); %>
@@ -31,14 +31,20 @@
         <div class="container">
             <div class="jumbotron">
                 <h1 class="center">Employee Table</h1>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Add Employee
-                </button>
             </div>
+            <!-- Button Add Modal Employee -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-employee">
+                Add Employee
+            </button>
+            <!-- Button Refresh Employee -->
+            <a href="../EmployeeServlet">
+                <button type="button" class="btn btn-warning">
+                    Refresh
+                </button>
+            </a>
             <div class="row">
                 <div class="col-12">
-                    <table id="table-employee">
+                    <table id="table-employee" class="table table-responsive">
                         <thead>
                         <th>ID</th>
                         <th>FirstName</th>
@@ -80,11 +86,38 @@
                                 <td><%=employee.getDepartmentId().getDepartmentId()%></td>
                                 <%}%>
                                 <td>
-                                    <a href="../EmployeeServlet?deleteId=<%= employee.getEmployeeId()%>" class="btn btn-sm btn-block btn-primary">Edit</a>
+                                                <!-- Button Add Modal Employee -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-employee-<%= employee.getEmployeeId() %>">
+                                        Edit
+                                    </button>
                                     <a href="../EmployeeServlet?editId=<%= employee.getEmployeeId()%>" class="btn btn-sm btn-block btn-danger">Delete</a>
                                 </td>
                             </tr>
-                            <%}%>
+
+                            <!-- Modal Update -->
+                        <div class="modal fade" id="edit-employee-<%= employee.getEmployeeId() %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Employee - <%= employee.getLastName() %></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <%= employee.getFirstName() %>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <%}%>
                         </tbody>
                         <tfoot>
                         <th>ID</th>
@@ -121,22 +154,24 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Add Modal -->
+    <div class="modal fade" id="add-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
