@@ -1,28 +1,35 @@
 <%-- 
     Document   : Region
     Created on : May 21, 2019, 1:46:07 AM
-    Author     : RR17
+    Author     : Relion31
 --%>
 
 <%@page import="entities.Region"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
         <title>Region Data</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
     </head>
     <body>
-        <%-- "dataRegion" harus sama persis dengan di servlet, proses pengambilan data --%>
-        <% List<Region> regions = (List<Region>)session.getAttribute("dataRegion"); %>
-        <h1><center>Data Region</center></h1>
+        <% List<Region> regions = (List<Region>) session.getAttribute("dataRegion"); %>
+        
         <div class="container">
+            <h1>Region Table</h1>
             <div class="card border-info">
                 <div class="card-header bg-info text-white">
-                    <a type="button" class="btn btn-light" href="addRegionForm.jsp">Tambah Region</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#input-region">
+                        Add Data
+                    </button>
+                    <a type="button" class="btn btn-light" href="addRegion.jsp">Add</a>
+                    <a type="button" class="btn btn-light" href="../RegionServlet">Refresh</a>
                 </div>
                 <div class="card-body">
                     <table border="1" class="table table-striped">
@@ -34,78 +41,84 @@
                             </tr>
                         </thead>
                         <tbody align="center">
-                        <!--<c:forEach var="datas" items="${list}">-->
-                            
-                            <%-- table pengambilan data region --%>
-                            <% for (Region region : regions) { %>
+                            <%for (Region region : regions) {%>
                             <tr>
-                                <td> <%= region.getRegionId() %> </td>
-                                <td> <%= region.getRegionName()%> </td>
+                                <td><%= region.getRegionId()%></td>
+                                <td><%= region.getRegionName()%></td>
                                 <td>
-                                    <a type="button" class="btn btn-warning" href="#">Edit</a>
-                                    <a type="button" class="btn btn-danger" href="#">Delete</a>
+                                    <a type="button" class="btn btn-primary" href="#">Edit</a>
+                                    <!-- Button trigger modal -->
+                                    <form action="../RegionServlet?region_id=<%= region.getRegionId() %>" method="post">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete">
+                                        Delete
+                                    </button>
+                                    </form>
+                                    
                                 </td>
-        <!--                            <c:forEach var="datas" items="${list}">
-                                    <tr>
-                                        <td>${datas.region_id}</td>
-                                        <td>${datas.region_name}</td>
-                                        <td>
-                                            <a>Edit</a>
-                                            <a>Delete</a>
-                                        </td> -->
-                          </tr>
-                          <% } %>
-                        <!--</c:forEach>-->
+                            </tr>
+
+                            <!-- Modal HTML -->
+                        <div id="confirmDelete" class="modal fade">
+                            <div class="modal-dialog modal-confirm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="icon-box">
+                                            <i class="material-icons">&#xE5CD;</i>
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4 class="modal-title">Are you sure?</h4>	
+                                        <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                        <% }%>
+
                         </tbody>
                     </table>
-                          <%-- button refresh untuk muat ulang data Region --%>
-                        <a href="../RegionServlet"><input type="button" value="Refresh" /></a>
+
                 </div>
             </div>
         </div>
-        
-<!--         Button trigger modal 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Tambah Data Region
-        </button>
-        
-        
-         Modal 
-        <div class="modal fade" id="addRegion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+
+
+
+
+        <!-- Modal Dialog -->
+        <div class="modal fade" id="input-region" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
-                    
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h4 class="modal-title">Add Region</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
-                    
-                    <div class="modal-body">
-                        <form action="../RegionServlet" method="post">
+                    <form action="../RegionServlet" method="post">
+                        <div class="modal-body">
                             <div class="form-group">
-                                <label for="region">Region Name</label>
-                                <input type="text" class="form-control" name="region" id="region" placeholder="Nama Region" />
+                                <input type="text" class="form-control" id="region_name" name="region_name" aria-describedby="emailHelp" placeholder="Enter Region Name">
                             </div>
-                    </div>
-                    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
-                    </div>
-                    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                            <button type="submit" class="btn btn-primary" id="confirm">Save</button>
+
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        
-        <script>
-            $('#myModal').on('shown.bs.modal', function (){
-                    $('#myInput').trigger('focus')
-                })
-        </script>
-        <script src="https://code.jquery.com/jquery.js"></script>
-        <script src="../assets/js/bootstrap.min.js"></script>-->
-    </body>
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+    </body>  
 </html>

@@ -1,9 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servlet;
 
 import daos.GeneralDAO;
-import entities.Job;
+import entities.Country;
+import entities.Region;
 import idaos.IGeneralDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +20,11 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author RR17
+ * @author yosef
  */
-public class JobServlet extends HttpServlet {
+public class CountryServlet extends HttpServlet {
 
-    IGeneralDAO<Job> jdao = new GeneralDAO<>(Job.class, HibernateUtil.getSessionFactory());
+    IGeneralDAO<Country> cdao = new GeneralDAO<>(Country.class, HibernateUtil.getSessionFactory());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +39,18 @@ public class JobServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            //menampilkan getAll data Job dengan kembalian false
-            request.getSession().setAttribute("dataJob", jdao.getData("", false));
 
-            //controller link direct ke tampilan Job 
-            response.sendRedirect("region/job.jsp");
+            request.getSession().setAttribute("dataCountry", cdao.getData("", false));
+
+            response.sendRedirect("country/country.jsp");
+            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet JobServlet</title>");            
+//            out.println("<title>Servlet CountryServlet</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet JobServlet at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet CountryServlet at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
         }
@@ -61,13 +68,12 @@ public class JobServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("job_id");
-        String name = request.getParameter("job_title");
-        String min = request.getParameter("min_sal");
-        String max = request.getParameter("max_sal");
-        if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)) {
-            
-        }
+//        String id = request.getParameter("country_id");
+//        String name = request.getParameter("country_name");
+//        String ireg = request.getParameter("region_id");
+//        if (cdao.saveOrDelete(new Country(id, name, new Region(new BigDecimal(ireg))), true)) {
+//            
+//        }
         processRequest(request, response);
     }
 
@@ -82,14 +88,18 @@ public class JobServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("Job_id");
-        String name = request.getParameter("job_title");
-        String min = request.getParameter("min_sal");
-        String max = request.getParameter("max_sal");
-        if (id.isEmpty()) {
-            request.getSession().setAttribute("alert", "Job ID tidak boleh kosong");
+        String name = null;
+        String id = null;
+        String ireg = null;
+
+        id = request.getParameter("country_id");
+        name = request.getParameter("country_name");
+        ireg = request.getParameter("region_id");
+
+        if (name.isEmpty()) {
+            request.getSession().setAttribute("alert", "Nama Country tidak boleh kosong");
         } else {
-            if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)) {
+            if (cdao.saveOrDelete(new Country(id, name, new Region(new BigDecimal(ireg))), true)) {
                 processRequest(request, response);
             }
         }
