@@ -1,6 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servlet;
 
 import daos.GeneralDAO;
-import entities.Job;
+import entities.Department;
+import entities.Employee;
+import entities.Location;
 import idaos.IGeneralDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,11 +20,13 @@ import tools.HibernateUtil;
 
 /**
  *
- * @author RR17
+ * @author Rahmad
  */
-public class JobServlet extends HttpServlet {
+public class DepartmentServlet extends HttpServlet {
 
-    IGeneralDAO<Job> jdao = new GeneralDAO<>(Job.class, HibernateUtil.getSessionFactory());
+//    private Department department;
+
+    IGeneralDAO<Department> generalDAO = new GeneralDAO<>(Department.class, HibernateUtil.getSessionFactory());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,21 +41,8 @@ public class JobServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            //menampilkan getAll data Job dengan kembalian false
-            request.getSession().setAttribute("dataJob", jdao.getData("", false));
-
-            //controller link direct ke tampilan Job 
-            response.sendRedirect("region/job.jsp");
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet JobServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet JobServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
+            request.getSession().setAttribute("dataDepartment", generalDAO.getData("", false));
+            response.sendRedirect("department/department.jsp");
         }
     }
 
@@ -61,13 +58,10 @@ public class JobServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("job_id");
-        String name = request.getParameter("job_title");
-        String min = request.getParameter("min_sal");
-        String max = request.getParameter("max_sal");
-        if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)) {
-            
-        }
+//        Product product = productService.find(request.getParameter("id"));
+//        Department department
+//                = request.setAttribute("department", department); // Will be available as ${product} in JSP
+//        request.getRequestDispatcher("/WEB-INF/product.jsp").forward(request, response);
         processRequest(request, response);
     }
 
@@ -82,17 +76,15 @@ public class JobServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("Job_id");
-        String name = request.getParameter("job_title");
-        String min = request.getParameter("min_sal");
-        String max = request.getParameter("max_sal");
-        if (id.isEmpty()) {
-            request.getSession().setAttribute("alert", "Job ID tidak boleh kosong");
-        } else {
-            if (jdao.saveOrDelete(new Job(id, name, Integer.parseInt(min), Integer.parseInt(max)), true)) {
-                processRequest(request, response);
-            }
+
+        String dName = request.getParameter("dName");
+        String managerId = request.getParameter("managerId");
+        String locId = request.getParameter("locId");
+        if (generalDAO.saveOrDelete(new Department(new Short("0"), dName, new Employee(Integer.parseInt(managerId)), new Location(new Short(locId))), true)) {
+            processRequest(request, response);
         }
+
+        processRequest(request, response);
     }
 
     /**

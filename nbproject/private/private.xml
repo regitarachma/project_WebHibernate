@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/JAVA/Web-Hibernite-master/web/index.html</file>
-            <file>file:/D:/JAVA/Web-Hibernite-master/src/java/servlet/RegionServlet.java</file>
-            <file>file:/D:/JAVA/Web-Hibernite-master/web/region/region.jsp</file>
-            <file>file:/D:/JAVA/Web-Hibernite-master/web/region/addRegionForm.jsp</file>
+            <file>file:/C:/Users/Rahmad/Documents/NetBeansProjects/Web-Hibernite-master/src/java/servlet/DepartmentServlet.java</file>
+            <file>file:/C:/Users/Rahmad/Documents/NetBeansProjects/Web-Hibernite-master/web/department/department.jsp</file>
+            <file>file:/C:/Users/Rahmad/Documents/NetBeansProjects/Web-Hibernite-master/web/index.html</file>
+            <file>file:/C:/Users/Rahmad/Documents/NetBeansProjects/Web-Hibernite-master/web/department/forminput.jsp</file>
         </group>
     </open-files>
 </project-private>

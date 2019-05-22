@@ -1,28 +1,30 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servlet;
 
 import daos.GeneralDAO;
-import daos.RegionDAO;
-import entities.Region;
 import idaos.IGeneralDAO;
-import idaos.IRegionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.Hibernate;
+import entities.Region;
+import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
 
 /**
  *
- * @author RR17
+ * @author Rahmad
  */
 public class RegionServlet extends HttpServlet {
-    
-    IGeneralDAO<Region> rdao = new GeneralDAO<>(Region.class, HibernateUtil.getSessionFactory());
+
+    IGeneralDAO<Region> generalDAO = new GeneralDAO<>(Region.class, HibernateUtil.getSessionFactory());
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,15 +38,9 @@ public class RegionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            
-            //menampilkan getAll data Region dengan kembalian false
-            request.getSession().setAttribute("dataRegion", rdao.getData("", false));
-            
-            //controller link direct ke tampilan region 
+            request.getSession().setAttribute("dataRegion", generalDAO.getData("", false));
             response.sendRedirect("region/region.jsp");
-//            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-//            dispatcher.
+            /* TODO output your page here. You may use following sample code. */
             
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
@@ -55,6 +51,7 @@ public class RegionServlet extends HttpServlet {
 //            out.println("<h1>Servlet RegionServlet at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
+
         }
     }
 
@@ -84,10 +81,7 @@ public class RegionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("region");
-        if (rdao.saveOrDelete(new Region(new BigDecimal(0), name), true)){
-            processRequest(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
