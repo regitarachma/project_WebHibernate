@@ -6,24 +6,26 @@
 package servlet;
 
 import daos.GeneralDAO;
+import entities.Region;
 import idaos.IGeneralDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entities.Region;
-import org.hibernate.SessionFactory;
+import org.hibernate.Hibernate;
 import tools.HibernateUtil;
 
 /**
  *
- * @author Rahmad
+ * @author ASUS
  */
-public class RegionServlet extends HttpServlet {
+public class regionServlet extends HttpServlet {
 
-    IGeneralDAO<Region> generalDAO = new GeneralDAO<>(Region.class, HibernateUtil.getSessionFactory());
+    IGeneralDAO<Region> rao = new GeneralDAO<>(Region.class, HibernateUtil.getSessionFactory());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,20 +40,19 @@ public class RegionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getSession().setAttribute("dataRegion", generalDAO.getData("", false));
+            request.getSession().setAttribute("dataRegion", rao.getData("", false));
             response.sendRedirect("region/region.jsp");
+//            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+
             /* TODO output your page here. You may use following sample code. */
-            
-//            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet RegionServlet</title>");            
+//            out.println("<title>Servlet regionServlet</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet RegionServlet at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet regionServlet at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
-
         }
     }
 
@@ -81,17 +82,22 @@ public class RegionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String name = request.getParameter("regionName");
+        if (rao.saveOrDelete(new Region(new BigDecimal(0), name), true)) {
+            processRequest(request, response);
+        }
+
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+//        @Override
+//        public String getServletInfo
+//        
+//            () {
+//        return "Short description";
+//        }// </editor-fold>
+
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

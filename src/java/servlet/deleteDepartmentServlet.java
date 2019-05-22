@@ -5,16 +5,16 @@
  */
 package servlet;
 
-import daos.GeneralDAO;
 import entities.Department;
+import daos.GeneralDAO;
 import entities.Employee;
+import entities.Job;
 import entities.Location;
-import entities.Region;
 import idaos.IGeneralDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +24,10 @@ import tools.HibernateUtil;
  *
  * @author RossaHening
  */
-public class departmentServlet extends HttpServlet {
+@WebServlet(name = "deleteDepartmentServlet", urlPatterns = {"/deleteDepartmentServlet"})
+public class deleteDepartmentServlet extends HttpServlet {
 
-    IGeneralDAO<Department> dAO = new GeneralDAO<>(Department.class, HibernateUtil.getSessionFactory());
-
+    IGeneralDAO<Department> dao = new GeneralDAO<>(Department.class, HibernateUtil.getSessionFactory());
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,16 +41,16 @@ public class departmentServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getSession().setAttribute("dataDepartment", dAO.getData("", false));
+            request.getSession().setAttribute("dataDepartment", dao.getData("", false));
             response.sendRedirect("department/department.jsp");
             /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet departmentServlet</title>");            
+//            out.println("<title>Servlet deleteDepartmentServlet</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet departmentServlet at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet deleteDepartmentServlet at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
         }
@@ -68,35 +68,16 @@ public class departmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-
-            String did = null;
-            String dname = null;
-            String dman = null;
-            String dloc = null;
-
-            did = request.getParameter("did");
-            dname = request.getParameter("dname");
-            dman = request.getParameter("dman");
-            dloc = request.getParameter("dloc");
-            int did_ = 0;
-            if (did != null) {
-                did_ = Integer.parseInt(did);
-
-                if (dAO.saveOrDelete(new Department(new Short("0"), dname, new Employee(Integer.parseInt(dman)), new Location(new Short(dloc))), true)) {
-
-                    processRequest(request, response);
-                }
-            } else {
-                request.getSession().setAttribute("alert", "D Name tidak boleh kosong");
-                processRequest(request, response);
-            }
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
-
+        String did = request.getParameter("did");
+        String dname = request.getParameter("dname");
+        String dman = request.getParameter("dman");
+        String dloc = request.getParameter("dloc");
+        if (dao.saveOrDelete(new Department(new Short("0"), dname, new Employee(Integer.parseInt(dman)), new Location(new Short(dloc))), true)) {
+//
+//        }
+        processRequest(request, response);
     }
-
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -108,34 +89,17 @@ public class departmentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = null;
-        String name = null;
-        String man = null;
-        String loc = null;
-        
-        id = request.getParameter("id");
-        name = request.getParameter("name");
-        man = request.getParameter("man");
-        loc = request.getParameter("loc");
-        
-        if (name.isEmpty()) {
-            request.getSession().setAttribute("alert", "NAME tidak boleh kosong");
-        } else {
-        if (dAO.saveOrDelete(new Department(new Short("0"), name, new Employee(Integer.parseInt(man)), new Location(new Short(loc))), true)) {
         processRequest(request, response);
     }
-}
+
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-//        @Override
-//        public String getServletInfo
-//        
-//            () {
-//        return "Short description";
-//        }// </editor-fold>
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
-}
 }

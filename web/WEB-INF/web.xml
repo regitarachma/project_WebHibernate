@@ -5,24 +5,32 @@
         <servlet-class>cobaServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RegionServlet</servlet-name>
-        <servlet-class>servlet.RegionServlet</servlet-class>
+        <servlet-name>regionServlet</servlet-name>
+        <servlet-class>servlet.regionServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DepartmentServlet</servlet-name>
-        <servlet-class>servlet.DepartmentServlet</servlet-class>
+        <servlet-name>departmentServlet</servlet-name>
+        <servlet-class>servlet.departmentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteDepartmentServlet</servlet-name>
+        <servlet-class>servlet.deleteDepartmentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>cobaServlet</servlet-name>
         <url-pattern>/cobaServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RegionServlet</servlet-name>
-        <url-pattern>/RegionServlet</url-pattern>
+        <servlet-name>regionServlet</servlet-name>
+        <url-pattern>/regionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DepartmentServlet</servlet-name>
-        <url-pattern>/DepartmentServlet</url-pattern>
+        <servlet-name>departmentServlet</servlet-name>
+        <url-pattern>/departmentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteDepartmentServlet</servlet-name>
+        <url-pattern>/deleteDepartmentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

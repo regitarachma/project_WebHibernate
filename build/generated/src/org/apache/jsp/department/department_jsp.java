@@ -67,6 +67,7 @@ public final class department_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div class=\"card border-info\">\n");
       out.write("                <div class=\"card-header bg-info text-white\">\n");
       out.write("                    <a type=\"button\" class=\"btn btn-light\" href=\"forminput.jsp\">Add</a>\n");
+      out.write("                    <a type=\"button\" class=\"btn btn-light\" href=\"/departmentServlet.java\">Refresh</a>\n");
       out.write("                </div>\n");
       out.write("                <div class=\"card-body\">\n");
       out.write("                    <table border=\"1\" class=\"table table-striped\">\n");
@@ -85,6 +86,7 @@ public final class department_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\">-->\n");
       out.write("                            ");
 for (Department d : departments) {
+
                             
       out.write("\n");
       out.write("                            <tr>\n");
@@ -98,21 +100,34 @@ for (Department d : departments) {
       out.print(d.getManagerId());
       out.write("</td>\n");
       out.write("                                <td>");
-      out.print(d.getLocationId().getLocationId());
+      out.print(d.getLocationId());
       out.write("</td>\n");
       out.write("                                <td>\n");
       out.write("                                    <a type=\"button\" class=\"btn btn-warning\" href=\"#\">Edit</a>\n");
       out.write("                                    <a type=\"button\" class=\"btn btn-danger\" href=\"#\">Delete</a>\n");
       out.write("                                </td>\n");
-      out.write("                                    \n");
+      out.write("        <!--                            <c:forEach var=\"datas\" items=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${list}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\">\n");
+      out.write("                                    <tr>\n");
+      out.write("                                        <td>");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${datas.region_id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</td>\n");
+      out.write("                                        <td>");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${datas.region_name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</td>\n");
+      out.write("                                        <td>\n");
+      out.write("                                            <a>Edit</a>\n");
+      out.write("                                            <a>Delete</a>\n");
+      out.write("                                        </td> -->\n");
       out.write("                            </tr>\n");
       out.write("                            ");
 }
       out.write("\n");
-      out.write("                            <!--</c:forEach>\n");
-      out.write("<!---->                        </tbody>\n");
+      out.write("                            <!--</c:forEach>-->\n");
+      out.write("                        </tbody>\n");
       out.write("                    </table>\n");
-      out.write("                            <a href=\"../DepartmentServlet\"><input type=\"button\" value=\"Refresh\" /></a>\n");
+      out.write("                            \n");
       out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("        </div> \n");

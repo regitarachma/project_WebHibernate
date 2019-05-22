@@ -69,6 +69,10 @@ public class Department implements Serializable {
         this.managerId = managerId;
         this.locationId = locationId;
     }
+
+    public Department(Short aShort, String dName, Employee employee, Location location, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
     public Short getDepartmentId() {
