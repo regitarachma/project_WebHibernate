@@ -67,40 +67,31 @@ public class EmployeeServlet extends HttpServlet {
 //        String jobId = request.getParameter("jobId");
 //        String managerId = request.getParameter("managerId");
 //        String departmentId = request.getParameter("departmentId");
-//
-//        String deleteId = request.getParameter("DelEmpId");
-//        if (!updateId.isEmpty() && deleteId.isEmpty()) {
-//            request.getSession().setAttribute("notif", "Data telah berhasil diupdate");
-//            request.getSession().setAttribute("dataEmp", igdao.getData(updateId, false));
-//            processRequest(request, response);
-//        } else if (!deleteId.isEmpty() && updateId.isEmpty()) {
-//            if (igdao.saveOrDelete(new Employee(Integer.parseInt(deleteId)), true)) {
-//                request.getSession().setAttribute("notif", "Data telah berhasil dihapus");
-//                processRequest(request, response);
-//            }
-//        } else {
-//            request.getSession().setAttribute("notif", "Data tidak berhasil dihapus");
+            request.getSession().setAttribute("notif", null);
+            String deleteId = null;
+            deleteId = request.getParameter("delEmpId");
+            if (deleteId != null) {
+                if (igdao.saveOrDelete(new Employee(Integer.parseInt(deleteId)), false)) {
+                    request.getSession().setAttribute("notif", "Data berhasil dihapus");
+                } else {
+                    request.getSession().setAttribute("notif", "Data gagal dihapus");
+                }
+            }
+            
             processRequest(request, response);
-//        }
-
-//        processRequest(request, response);
-
-//         String name = request.getParameter("region_name");
-//        if (rdao.saveOrDelete(new Region(new BigDecimal(0), name), true)) {
-//            processRequest(request, response);
-//        }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+/**
+ * Handles the HTTP <code>POST</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -111,7 +102,7 @@ public class EmployeeServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

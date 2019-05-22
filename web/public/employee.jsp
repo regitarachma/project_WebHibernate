@@ -18,6 +18,7 @@
         <link href="../assets/css/mdb.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -26,11 +27,21 @@
         <!--        <script src="https://code.jquery.com/jquery.js"></script>-->
         <!--        <script src="assets/js/bootstrap.min.js"></script>-->
         <script src="../assets/js/mdb.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                $("#datepicker").datepicker();
+            });
+        </script>
     </head>
     <body>
         <% List<Employee> list = (List<Employee>) session.getAttribute("dataEmployee"); %>
+        <% String notif = (String) session.getAttribute("notif"); %>
 
         <div class="container">
+            <% if (notif != null) {%>
+            <%= "<div class='alert alert-danger' role='alert'>" + notif + "</div>"%>
+            <%}%>
             <div class="jumbotron">
                 <h1 class="center">Employee Table</h1>
             </div>
@@ -40,7 +51,7 @@
             </a>
             <!-- Button Refresh Employee -->
             <a href="../EmployeeServlet" class="btn btn-sm btn-warning">
-                    Refresh
+                Refresh
             </a>
             <div class="row">
                 <div class="col-12">
@@ -87,12 +98,12 @@
                                 <%}%>
                                 <td>
                                     <!-- Button Add Modal Employee -->
-                                    <a href="#" class="btn btn-sm btn-primary btn-block" id="btn-<%= employee.getEmployeeId() %>" data-toggle="modal" data-target="#edit-employee-<%= employee.getEmployeeId()%>">Edit</a>
-                                    <a href="#" class="btn btn-sm btn-danger btn-block" id="btn-<%= employee.getEmployeeId() %>" data-toggle="modal" data-target="#delete-employee-<%= employee.getEmployeeId()%>">Delete</a>
+                                    <a href="#" class="btn btn-sm btn-primary btn-block" id="btn-<%= employee.getEmployeeId()%>" data-toggle="modal" data-target="#edit-employee-<%= employee.getEmployeeId()%>">Edit</a>
+                                    <a href="#" class="btn btn-sm btn-danger btn-block" id="btn-<%= employee.getEmployeeId()%>" data-toggle="modal" data-target="#delete-employee-<%= employee.getEmployeeId()%>">Delete</a>
                                 </td>
                             </tr>
-  
-                        <!-- Modal Update -->
+
+                            <!-- Modal Update -->
                         <div class="modal fade" id="edit-employee-<%= employee.getEmployeeId()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-dialog modal-lg">
@@ -107,7 +118,7 @@
                                             <%= employee.getFirstName()%>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                             <button type="button" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
@@ -130,8 +141,8 @@
                                             <%= employee.getFirstName()%>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-danger">Yes, I delete it</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <a href="../EmployeeServlet?delEmpId=<%= employee.getEmployeeId()%>" class="btn btn-danger">Yes, I delete it</a>
                                         </div>
                                     </div>
                                 </div>
@@ -215,8 +226,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="date-picker-example">Try me...</label>
-                                <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">
+                                <label for="date-picker-example">Select Date ...</label>
+                                <input placeholder="Selected date" type="text" id="datepicker" class="form-control datepicker">
                             </div>
                             <div class="form-group">
                                 <label for="inputAddress2">Address 2</label>
