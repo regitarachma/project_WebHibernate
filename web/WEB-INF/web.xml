@@ -12,6 +12,10 @@
         <servlet-name>JobServlet</servlet-name>
         <servlet-class>JobServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JobServlett</servlet-name>
+        <servlet-class>servlet.JobServlett</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>cobaServlet</servlet-name>
         <url-pattern>/cobaServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>JobServlet</servlet-name>
         <url-pattern>/JobServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JobServlett</servlet-name>
+        <url-pattern>/JobServlett</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
