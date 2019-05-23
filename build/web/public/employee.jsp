@@ -206,50 +206,82 @@
 
                         <form>
                             <div class="form-row">
+                                <input type="hidden" class="form-control" id="empId" name="empId" placeholder="Employee ID" value="0">
                                 <div class="form-group col-md-6">
-                                    <label for="inputFirstname">Firstname</label>
-                                    <input type="text" class="form-control" id="inputFirstname" name="inputFirstname" placeholder="Firstname">
+                                    <label for="empFirstname">Firstname</label>
+                                    <input type="text" class="form-control" id="empFirstname" name="empFirstname" placeholder="Firstname">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputLastname">Lastname</label>
-                                    <input type="text" class="form-control" id="inputLastname" name="inputLastname" placeholder="Lastname">
+                                    <label for="empLastname">Lastname</label>
+                                    <input type="text" class="form-control" id="empLastname" name="empLastname" placeholder="Lastname" required="">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="inputEmail">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email">
+                                    <label for="empEmail">Email</label>
+                                    <input type="email" class="form-control" id="empEmail" name="empEmail" placeholder="Email" required="">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputPhone">Phone Number</label>
-                                    <input type="number" class="form-control" id="inputPhone" name="inputPhone" placeholder="Phone Number">
+                                    <label for="empPhone">Phone Number</label>
+                                    <input type="number" class="form-control" id="empPhone" name="empPhone" placeholder="Phone Number">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="date-picker-example">Select Date ...</label>
-                                <input placeholder="Selected date" type="text" id="datepicker" class="form-control datepicker">
+                                <label for="datepicker">Hire Date</label>
+                                <input placeholder="Selected date" type="text" id="datepicker" class="form-control datepicker" name="empHireDate" required="">
                             </div>
                             <div class="form-group">
-                                <label for="inputAddress2">Address 2</label>
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputCity">City</label>
-                                    <input type="text" class="form-control" id="inputCity">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="inputState">State</label>
-                                    <select id="inputState" class="form-control">
+                                    <label for="empJobId">Job</label>
+                                    <select id="empJobId" class="form-control" name="empJobId">
                                         <option selected>Choose...</option>
-                                        <option>...</option>
+                                        <option value="">...</option>
+                                    </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="empSalary">Salary</label>
+                                    <input placeholder="Salary" type="number" id="empSallary" class="form-control" name="empSalary">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="empCommissionPct">Commission Pct</label>
+                                    <input placeholder="Commission Pct" type="number" id="empCommissionPct" class="form-control" name="empCommPct">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="empManagerId">Manager</label>
+                                    <select id="empManagerId" class="form-control" name="empManagerId">
+                                        <option selected>Choose...</option>
+                                        <option value="">...</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="inputZip">Zip</label>
-                                    <input type="text" class="form-control" id="inputZip">
+                                <div class="form-group col-md-6">
+                                    <label for="empDepartmentId">Department</label>
+                                    <select id="empDepartmentId" class="form-control" name="empDepartmentId">
+                                        <option selected>Choose...</option>
+                                        <option value="">...</option>
+                                    </select>
+
                                 </div>
                             </div>
+
+                            <!--                            <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="inputCity">City</label>
+                                                                <input type="text" class="form-control" id="inputCity">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="inputState">State</label>
+                                                                <select id="inputState" class="form-control">
+                                                                    <option selected>Choose...</option>
+                                                                    <option>...</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label for="inputZip">Zip</label>
+                                                                <input type="text" class="form-control" id="inputZip">
+                                                            </div>
+                                                        </div>-->
                         </form>
                     </div>
                     <div class="modal-footer">
