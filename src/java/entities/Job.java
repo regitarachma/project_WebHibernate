@@ -40,7 +40,7 @@ public class Job implements Serializable {
     @Basic(optional = false)
     @Column(name = "JOB_ID")
     private String jobId;
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "JOB_TITLE")
     private String jobTitle;
     @Column(name = "MIN_SALARY")

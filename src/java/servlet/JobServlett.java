@@ -75,11 +75,14 @@ public class JobServlett extends HttpServlet {
             String name = null;
             String min = null;
             String max = null;
-
+            
+            request.getSession().setAttribute("delete", "false");
             id = request.getParameter("job_id");
             name = request.getParameter("job_title");
             min = request.getParameter("min_sal");
             max = request.getParameter("max_sal");
+            
+            PrintWriter out = response.getWriter();
             
             int minsal = 0;
             int maxsal = 0;
@@ -92,6 +95,7 @@ public class JobServlett extends HttpServlet {
                     }
                 } else {
                     if (jdao.saveOrDelete(new Job(id), false)) {
+                        request.getSession().setAttribute("delete", "true");
                         processRequest(request, response);
                     }
                 }

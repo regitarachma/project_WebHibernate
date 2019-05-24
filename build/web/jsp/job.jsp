@@ -18,12 +18,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+        
+        <link rel="stylesheet" href="../assets/css/mandatory.css" >
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
         <title>Job Data</title>
     </head>
-    <body>
+        <% String delete = (String) session.getAttribute("delete"); %>
+    <body <% if(delete == "true") {%> <%= "onload='alert()'" %> <%}%>>
         <% List<Job> jobs = (List<Job>) session.getAttribute("dataJob"); %>
+        <div class="hide"></div>
         <div class="container">
             <h1><center>Job Table</center></h1>
             <div class="card border-info">
@@ -63,7 +68,7 @@
             </div>
         </div>
 
-        <!-- Modal Dialog -->
+        <!-- Modal insert Dialog -->
         <div class="modal fade" id="input-job" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -73,25 +78,30 @@
                     </div>
                     <form action="../JobServlett" method="post">
                         <div class="modal-body">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="job_id" name="job_id" aria-describedby="emailHelp" placeholder="Enter Job Id">
+                            <div class="form-group required">
+                                <label class="control-label"><b>Job ID </b></label>
+                                <input type="text" class="form-control" id="job_id" name="job_id" aria-describedby="jobidhelp" placeholder="Enter Job Id" required>
+                                <small id="jobidhelp" class="form-text text-mute">Please insert JobID with character</small>
                             </div>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="job_title" name="job_title" aria-describedby="emailHelp" placeholder="Enter Job Name">
+                        
+                            <div class="form-group required">
+                                <label class="control-label"><b>Job Title </b></label>
+                                <input type="text" class="form-control" id="job_title" name="job_title" aria-describedby="jobtitlehelp" placeholder="Enter Job Name" required>
+                                <small id="jobtitlehelp" class="form-text text-mute">Enter your job name</small>
                             </div>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="min_sal" name="min_sal" aria-describedby="emailHelp" placeholder="Enter Minimal Salary">
+                       
+                            <div class="form-group required">
+                                <label><b>Minimal Salary </b></label>
+                                <input type="text" class="form-control" id="min_sal" name="min_sal" aria-describedby="minsalhelp" placeholder="Enter Minimal Salary" required>
+                                <small id="minsalhelp" class="form-text text-mute">Enter your minimal salary more than 0</small>
                             </div>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="max_sal" name="max_sal" aria-describedby="emailHelp" placeholder="Enter Maximal Salary">
+                        
+                            <div class="form-group required">
+                                <label><b>Maximal Salary </b></label>
+                                <input type="text" class="form-control" id="max_sal" name="max_sal" aria-describedby="maxsalhelp" placeholder="Enter Maximal Salary" required>
+                                <small id="maxsal" class="form-text text-mute">Enter your maximal salary more than 0</small>
                             </div>
-                        </div>
+                        
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
@@ -101,7 +111,9 @@
                     </form>
                 </div>
             </div>
+            </div>
         </div>
+            
         
         <!--modal edit job-->
         <%for (Job job : jobs) {%>
@@ -114,15 +126,24 @@
                     </div>
                     <form action="../JobServlett" method="get">
                     <div class="modal-body">
-                        <input type="hidden" class="form-control" id="job_id" name="job_id" value="<%= job.getJobId()%>">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="job_title" name="job_title" value="<%= job.getJobTitle()%>" required placeholder="Enter Job Title">
+                        <div>
+                            <label><b>Job ID </b></label>
+                            <input type="text" class="form-control" id="job_id" name="job_id" readonly value="<%= job.getJobId()%>">
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="min_sal" name="min_sal" value="<%= job.getMinSalary()%>" required placeholder="Enter Minimal Salary">
+                        <div class="form-group required">
+                            <label><b>Job Title </b></label>
+                            <input type="text" class="form-control" id="jobtitlehelp" name="job_title" value="<%= job.getJobTitle()%>" placeholder="Enter Job Title" required>
+                            <small id="jobtitlehelp" class="form-text text-mute">Update your job name</small>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="max_sal" name="max_sal" value="<%= job.getMaxSalary()%>" required placeholder="Enter Maximal Salary">
+                        <div class="form-group required">
+                            <label><b>Minimal Salary : </b></label>
+                            <input type="text" class="form-control" id="minsalhelp" name="min_sal" value="<%= job.getMinSalary()%>" placeholder="Enter Minimal Salary" required>
+                            <small id="minsalhelp" class="form-text text-mute">Update your minimal salary more than 0</small>
+                        </div>
+                        <div class="form-group required">
+                            <label><b>Maximal Salary : </b></label>
+                            <input type="text" class="form-control" id="maxsalhelp" name="max_sal" value="<%= job.getMaxSalary()%>" placeholder="Enter Maximal Salary" required>
+                            <small id="maxsalhelp" class="form-text text-mute">Update your maximal salary more than 0</small>
                         </div>
                     </div>
                         <div class="modal-footer">
@@ -151,7 +172,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary" id="confirm">Delete</button>
+                            <button type="submit" class="btn btn-primary" id="confirm" >Delete</button>
 
                         </div>
                     </form>
@@ -164,6 +185,17 @@
             $(document).ready(function () {
                 $('#table_id').DataTable();
             });
+        </script>
+        
+        <script>
+            function alert(){
+                swal({
+                title: "Delete",
+                text: "Success!",
+                icon: "success",
+                button: "OK",
+                });
+            }
         </script>
 </body>
 </html>

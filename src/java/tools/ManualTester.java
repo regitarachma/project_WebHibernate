@@ -51,9 +51,9 @@ public class ManualTester {
 //            System.out.println(j.getJobId());
 //        }
         
-//        for (Job job : jdao.saveOrDelete("ZZZZ", false)) {
-//            System.out.println(job.getJobId());
-//        }
+        
+//            System.out.println(jdao.saveOrDelete(new Job("ZZZZ", "hua", 2321, 89218), false));
+               System.out.println(jdao.saveOrDelete(new Job("ZZZ"), false));
         
 //        for (Country c : cdao.getData("ZZ", false)) {
 //            System.out.println(c.getCountryId()+" "+c.getCountryName()+" "+c.getRegionId().getRegionName());
